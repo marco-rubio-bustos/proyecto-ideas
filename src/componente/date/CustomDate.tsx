@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import NumberDate from "./NumberDate.tsx";
+import Points from "./Points.tsx";
 import "../../App.css";
 
 function CustomDate() {
@@ -12,20 +14,38 @@ function CustomDate() {
     return () => clearInterval(interval); // limpia el intervalo al desmontar
   }, []);
 
-  const [valueTwo, setValueTwo] = useState(1); // Cambia a 2 para probar otros
-  const [value, setValue] = useState(1); // Cambia a 2 para probar otros
+  const [tenHours, setTenHours] = useState(8);
+  const [unitHours, setUnitHours] = useState(8);
+  const [tenMinutes, setTenMinutes] = useState(8);
+  const [unitMinutes, setUnitMinutes] = useState(8);
+  const [tenSeconds, setTenSeconds] = useState(8);
+  const [unitSeconds, setUnitSegundos] = useState(8);
 
   const hours = time.getHours().toString().padStart(2, "0");
   const minutes = time.getMinutes().toString().padStart(2, "0");
-  const seconds = time.getSeconds().toString().padStart(2, "0").toString();
+  const seconds = time.getSeconds().toString().padStart(2, "0");
 
   // Si quieres actualizar value basado en 'segundo', usa useEffect:
   useEffect(() => {
-    setValueTwo(Number(seconds[0]));
+    setTenHours(Number(hours[0]));
   }, [seconds]);
 
   useEffect(() => {
-    setValue(Number(seconds[1]));
+    setUnitHours(Number(hours[1]));
+  }, [seconds]);
+  useEffect(() => {
+    setTenMinutes(Number(minutes[0]));
+  }, [seconds]);
+
+  useEffect(() => {
+    setUnitMinutes(Number(minutes[1]));
+  }, [seconds]);
+  useEffect(() => {
+    setTenSeconds(Number(seconds[0]));
+  }, [seconds]);
+
+  useEffect(() => {
+    setUnitSegundos(Number(seconds[1]));
   }, [seconds]);
 
   const numbers = Array.from({ length: 15 }, (_, i) => i + 1);
@@ -48,18 +68,16 @@ function CustomDate() {
 
   return (
     <div>
-      <h1>Fecha</h1>
-      <p>Esta es la fecha del proyecto</p>
       <p>Fecha: {new Date().toLocaleDateString()}</p>
       <p>{time.toLocaleTimeString()}</p>
 
       <p>
         <strong>Horas:</strong> {hours} <br />
         <strong>Minutos:</strong> {minutes} <br />
-        <strong>Segundos:</strong> {seconds} <br />
+        {/* <strong>Segundos:</strong> {seconds} <br /> */}
       </p>
 
-      <div className="seconds">
+      <div className="numerals">
         <div
           className="date"
           style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
@@ -69,7 +87,7 @@ function CustomDate() {
               key={num}
               style={{
                 padding: "8px",
-                backgroundColor: visibleSpansTwo(valueTwo).includes(num)
+                backgroundColor: visibleSpansTwo(tenSeconds).includes(num)
                   ? "#4caf50"
                   : "",
               }}
@@ -85,14 +103,23 @@ function CustomDate() {
               key={num}
               style={{
                 padding: "8px",
-                backgroundColor: visibleSpans(value).includes(num)
+                backgroundColor: visibleSpans(unitSeconds).includes(num)
                   ? "#4caf50"
                   : "",
               }}
             ></span>
           ))}
         </div>
-
+      </div>
+      <div className="numerals">
+        <NumberDate numerals={visibleSpans(tenHours)} numbers={numbers} />
+        <NumberDate numerals={visibleSpans(unitHours)} numbers={numbers} />
+        <Points />
+        <NumberDate numerals={visibleSpans(tenMinutes)} numbers={numbers} />
+        <NumberDate numerals={visibleSpans(unitMinutes)} numbers={numbers} />
+        <Points />
+        <NumberDate numerals={visibleSpans(tenSeconds)} numbers={numbers} />
+        <NumberDate numerals={visibleSpans(unitSeconds)} numbers={numbers} />
       </div>
     </div>
   );
