@@ -72,6 +72,16 @@ span {
   }
   
 .points span {
-  background-color: #5ac760;
   margin: 1.3rem 0;
+}
+
+.changeColor{ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.changeColor input {
+  margin-bottom: 1rem;
 }

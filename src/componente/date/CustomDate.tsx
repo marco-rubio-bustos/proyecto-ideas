@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import NumberDate from "./NumberDate.tsx";
+import ChangeColor from "./changeColor.tsx";
 import Points from "./Points.tsx";
 import "../../App.css";
 
 function CustomDate() {
   const [time, setTime] = useState(new Date());
+  const [color, setColor] = useState<string>("#4caf50");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,11 +68,15 @@ function CustomDate() {
   const visibleSpans = (val: number): number[] => visibleSpansMap[val] ?? [];
   const visibleSpansTwo = (val: number): number[] => visibleSpansMap[val] ?? [];
 
+  const getColor = (colorRecibido: string) => {
+    setColor(colorRecibido); // lo guardamos para usarlo después
+  };
+
   return (
     <div>
       <p>Fecha: {new Date().toLocaleDateString()}</p>
       <p>{time.toLocaleTimeString()}</p>
-
+      <ChangeColor onEnviar={getColor} />
       <p>
         <strong>Horas:</strong> {hours} <br />
         <strong>Minutos:</strong> {minutes} <br />
@@ -88,7 +94,7 @@ function CustomDate() {
               style={{
                 padding: "8px",
                 backgroundColor: visibleSpansTwo(tenSeconds).includes(num)
-                  ? "#4caf50"
+                  ? color
                   : "",
               }}
             ></span>
@@ -112,14 +118,14 @@ function CustomDate() {
         </div>
       </div>
       <div className="numerals">
-        <NumberDate numerals={visibleSpans(tenHours)} numbers={numbers} />
-        <NumberDate numerals={visibleSpans(unitHours)} numbers={numbers} />
-        <Points />
-        <NumberDate numerals={visibleSpans(tenMinutes)} numbers={numbers} />
-        <NumberDate numerals={visibleSpans(unitMinutes)} numbers={numbers} />
-        <Points />
-        <NumberDate numerals={visibleSpans(tenSeconds)} numbers={numbers} />
-        <NumberDate numerals={visibleSpans(unitSeconds)} numbers={numbers} />
+        <NumberDate numerals={visibleSpans(tenHours)} numbers={numbers} color={color} />
+        <NumberDate numerals={visibleSpans(unitHours)} numbers={numbers} color={color}  />
+        <Points color={color} />
+        <NumberDate numerals={visibleSpans(tenMinutes)} numbers={numbers} color={color}  />
+        <NumberDate numerals={visibleSpans(unitMinutes)} numbers={numbers} color={color}  />
+        <Points color={color} />
+        <NumberDate numerals={visibleSpans(tenSeconds)} numbers={numbers} color={color}  />
+        <NumberDate numerals={visibleSpans(unitSeconds)} numbers={numbers} color={color}  />
       </div>
     </div>
   );
