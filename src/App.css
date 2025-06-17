@@ -40,13 +40,9 @@
 .read-the-docs {
   color: #888;
 }
-
-
 .date{
-  width: 7.6rem;
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem;
 }
 
 span {
@@ -54,6 +50,65 @@ span {
   height: 1.2rem;
   padding: .5rem;
   gap: .5rem;
+}
+
+.date-gap-0 {
+  gap: .0rem;
+  width: 6.6rem;
+}
+.date-gap-1 {
+  gap: .1rem;
+  width: 6.8rem;
+}
+.date-gap-2 {
+  gap: .2rem;
+  width: 7.0rem;
+}
+.date-gap-3 {
+  gap: .3rem;
+  width: 7.2rem;
+}
+.date-gap-4 {
+  gap: .4rem;
+  width: 7.4rem;
+}
+.date-gap-5 {
+  gap: .5rem;
+  width: 7.6rem;
+}
+
+.span-border-0 {
+  border-radius: .0rem;
+}
+.span-border-1 {
+  border-radius: .1rem;
+}
+.span-border-2 {
+  border-radius: .2rem;
+}
+.span-border-3 {
+  border-radius: .3rem;
+}
+.span-border-4 {
+  border-radius: .4rem;
+}
+.span-border-5 {
+  border-radius: .5rem;
+}
+.span-border-6 {
+  border-radius: .6rem;
+}
+.span-border-7 {
+  border-radius: .7rem;
+}
+.span-border-8 {
+  border-radius: .8rem;
+}
+.span-border-9 {
+  border-radius: .9rem;
+}
+.span-border-10 {
+  border-radius: 1rem;
 }
 
 .numerals {
@@ -75,11 +130,12 @@ span {
   margin: 1.3rem 0;
 }
 
-.changeColor{ 
+.changeColor, .changeRange{ 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2rem;
 }
 
 .changeColor input {

@@ -2,13 +2,14 @@ import "../../App.css";
 
 interface ColorDateProps {
   color: string;
+  rangeGap: number;
 }
 
-function Points({ color }: ColorDateProps) {
+function Points({ color, rangeGap }: ColorDateProps) {
   const style = { backgroundColor: `${color}80` };
 
   return (
-    <div className="points">
+    <div className={`points points-${rangeGap}`}>
       {[...Array(2)].map((_, index) => (
         <span key={index} style={style}></span>
       ))}
