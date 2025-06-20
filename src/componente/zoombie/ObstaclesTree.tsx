@@ -10,6 +10,7 @@ export const obstaclesTreeData = (speed: number, live_tree: number) => [
     live: live_tree, // 100 0.9
     opacity: 1,
     background: "20, 147, 12",
+    point: 20,
   },
   {
     id: 1,
@@ -20,6 +21,7 @@ export const obstaclesTreeData = (speed: number, live_tree: number) => [
     live: live_tree, //300 0.967
     opacity: 1,
     background: "20, 147, 12",
+    point: 20,
   },
   {
     id: 2,
@@ -30,6 +32,7 @@ export const obstaclesTreeData = (speed: number, live_tree: number) => [
     live: live_tree, // 50 0.8
     opacity: 1,
     background: "20, 147, 12",
+    point: 20,
   },
   // Puedes seguir agregando más...
 ];

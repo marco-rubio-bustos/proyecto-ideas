@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import catImg from "./img/pixel-cat.png";
 
 interface DateProps {
   speed: number;
@@ -6,7 +7,12 @@ interface DateProps {
   onMove: (dx: number, dy: number) => void;
 }
 
+const FRAME_X = 0;
+const FRAME_Y = 0;
+
 export default function Player({ speed, pos, onMove }: DateProps) {
+  const [dir, setDir] = useState(1);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
@@ -18,9 +24,11 @@ export default function Player({ speed, pos, onMove }: DateProps) {
           break;
         case "ArrowLeft":
           onMove(-speed, 0);
+          setDir(1);
           break;
         case "ArrowRight":
           onMove(speed, 0);
+          setDir(-1);
           break;
       }
     };
@@ -35,8 +43,12 @@ export default function Player({ speed, pos, onMove }: DateProps) {
         position: "absolute",
         width: "1rem",
         height: "1rem",
-        background: "blue",
-        transform: `translate(${pos.x}px, ${pos.y}px)`,
+        backgroundImage: `url(${catImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: `${FRAME_X}px ${FRAME_Y}px`,
+        backgroundRepeat: "no-repeat",
+        imageRendering: "pixelated",
+        transform: `translate(${pos.x}px, ${pos.y}px) scaleX(${dir})`,
       }}
     />
   );

@@ -10,6 +10,7 @@ export const obstaclesRockData = (speed: number, live_rock: number) => [
     live: live_rock, // 100 0.9
     opacity: 1,
     background: "130, 130, 130",
+    point: 10,
   },
   {
     id: 1,
@@ -20,6 +21,7 @@ export const obstaclesRockData = (speed: number, live_rock: number) => [
     live: live_rock, //300 0.967
     opacity: 1,
     background: "130, 130, 130",
+    point: 10,
   },
   {
     id: 2,
@@ -30,6 +32,7 @@ export const obstaclesRockData = (speed: number, live_rock: number) => [
     live: live_rock, // 50 0.8
     opacity: 1,
     background: "130, 130, 130",
+    point: 10,
   },
   // Puedes seguir agregando más...
 ];

@@ -1,0 +1,13 @@
+.materials{
+    display: flex;
+    font-size: .8rem;
+    margin-bottom: .5rem;
+}
+.materials p{
+    margin: 0;
+    padding-left: .5rem;
+}
+.score{
+    display: flex;
+    width: 6rem;
+}
