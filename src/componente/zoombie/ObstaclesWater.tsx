@@ -1,38 +1,35 @@
+import pixel from "./img/pixel.png";
 
+export const obstaclesWaterData = (speed: number, live_water: number) => {
+  const base = {
+    width: speed,
+    height: speed,
+    live: live_water,
+    opacity: 1,
+    background: "38, 102, 224",
+    backgroundImage: `url(${pixel})`,
+    point: 30,
+    backgroundPosition: "-74px -89px",
+  };
 
-export const obstaclesWaterData = (speed: number, live_water: number) => [
-  {
-    id: 0,
-    x: speed * 3,
-    y: speed * 3,
-    width: speed,
-    height: speed,
-    live: live_water, // 100 0.9
-    opacity: 1,
-    background: "38, 102, 224",
-    point: 30,
-  },
-  {
-    id: 1,
-    x: speed * 3,
-    y: speed * 4,
-    width: speed,
-    height: speed,
-    live: live_water, //300 0.967
-    opacity: 1,
-    background: "38, 102, 224",
-    point: 30,
-  },
-  {
-    id: 2,
-    x: speed * 3,
-    y: speed * 5,
-    width: speed,
-    height: speed,
-    live: live_water, // 50 0.8
-    opacity: 1,
-    background: "38, 102, 224",
-    point: 30,
-  },
-  // Puedes seguir agregando más...
-];
+  return [
+    {
+      ...base,
+      id: 0,
+      x: speed * 3,
+      y: speed * 3,
+    },
+    {
+      ...base,
+      id: 1,
+      x: speed * 3,
+      y: speed * 4,
+    },
+    {
+      ...base,
+      id: 2,
+      x: speed * 3,
+      y: speed * 5,
+    },
+  ];
+};

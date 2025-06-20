@@ -5,6 +5,8 @@ interface Obstacle {
   height: number;
   opacity: number;
   background: string;
+  backgroundImage?: string;
+  backgroundPosition?: string;
 }
 
 interface DateProps {
@@ -23,10 +25,12 @@ export default function Obstacle({ obstacles }: DateProps) {
             top: obs.y,
             width: obs.width,
             height: obs.height,
-            background: `rgba(${obs.background}, ${obs.opacity})`,
+            backgroundColor: `rgba(${obs.background}, ${obs.opacity})`,
+            backgroundImage: obs.backgroundImage,
+            backgroundPosition: obs.backgroundPosition,
+            opacity: obs.opacity,
           }}
-        > 
-        {obs.opacity}
+        >
         </div>
       ))}
     </>

@@ -1,4 +1,4 @@
-
+import pixel from "./img/pixel.png";
 
 export const obstaclesRockData = (speed: number, live_rock: number) => [
   {
@@ -10,7 +10,10 @@ export const obstaclesRockData = (speed: number, live_rock: number) => [
     live: live_rock, // 100 0.9
     opacity: 1,
     background: "130, 130, 130",
+    backgroundImage: `url(${pixel})`,
+    imageRendering: "pixelated",
     point: 10,
+    backgroundPosition: "-181px -107px",
   },
   {
     id: 1,
@@ -21,7 +24,10 @@ export const obstaclesRockData = (speed: number, live_rock: number) => [
     live: live_rock, //300 0.967
     opacity: 1,
     background: "130, 130, 130",
+    backgroundImage: `url(${pixel})`,
+    imageRendering: "pixelated",
     point: 10,
+    backgroundPosition: "-181px -107px",
   },
   {
     id: 2,
@@ -32,7 +38,10 @@ export const obstaclesRockData = (speed: number, live_rock: number) => [
     live: live_rock, // 50 0.8
     opacity: 1,
     background: "130, 130, 130",
+    backgroundImage: `url(${pixel})`,
+    imageRendering: "pixelated",
     point: 10,
+    backgroundPosition: "-181px -107px",
   },
   // Puedes seguir agregando más...
 ];

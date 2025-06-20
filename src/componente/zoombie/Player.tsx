@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import catImg from "./img/pixel-cat.png";
+import pixel from "./img/pixel.png";
 
 interface DateProps {
   speed: number;
   pos: { x: number; y: number };
   onMove: (dx: number, dy: number) => void;
 }
-
-const FRAME_X = 0;
-const FRAME_Y = 0;
+const FRAME_X = -128;
+const FRAME_Y = -178;
 
 export default function Player({ speed, pos, onMove }: DateProps) {
   const [dir, setDir] = useState(1);
@@ -43,8 +42,7 @@ export default function Player({ speed, pos, onMove }: DateProps) {
         position: "absolute",
         width: "1rem",
         height: "1rem",
-        backgroundImage: `url(${catImg})`,
-        backgroundSize: "cover",
+        backgroundImage: `url(${pixel})`,
         backgroundPosition: `${FRAME_X}px ${FRAME_Y}px`,
         backgroundRepeat: "no-repeat",
         imageRendering: "pixelated",

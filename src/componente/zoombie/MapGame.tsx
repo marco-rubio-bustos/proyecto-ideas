@@ -12,9 +12,23 @@ import "./css/score.css";
 const REM = 40;
 const SPEED = 16;
 const MAP_SIZE = REM * SPEED; // 640px
-const LIVE_TREE = 100;
-const LIVE_ROCK = 300;
-const LIVE_WATER = 50;
+const LIVE_TREE = 1000;
+const LIVE_ROCK = 1500;
+const LIVE_WATER = 600;
+
+type Obstacle = {
+  id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  live: number;
+  opacity: number;
+  point: number;
+  background: string;
+  backgroundImage?: string;
+  backgroundPosition?: string;
+};
 
 export default function MapGame() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -23,13 +37,13 @@ export default function MapGame() {
   const [scoreWater, setScoreWater] = useState(0);
 
   const [score, setScore] = useState(0);
-  const [obstaclesRock, setObstaclesRock] = useState(
+  const [obstaclesRock, setObstaclesRock] = useState<Obstacle[]>(
     obstaclesRockData(SPEED, LIVE_ROCK)
   );
-  const [obstaclesTree, setObstaclesTree] = useState(
+  const [obstaclesTree, setObstaclesTree] = useState<Obstacle[]>(
     obstaclesTreeData(SPEED, LIVE_TREE)
   );
-  const [obstaclesWater, setObstaclesWater] = useState(
+  const [obstaclesWater, setObstaclesWater] = useState<Obstacle[]>(
     obstaclesWaterData(SPEED, LIVE_WATER)
   );
 
@@ -51,7 +65,7 @@ export default function MapGame() {
     for (const { type, list, setter } of allObstacles) {
       const hit = getCollidingObstacle(list, newX, newY, SPEED);
       if (hit) {
-        const newLive = hit.live - 10;
+        const newLive = hit.live - 40;
         const isDestroyed = newLive <= 0;
 
         setter((prev) =>
