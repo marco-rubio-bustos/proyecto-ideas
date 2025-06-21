@@ -1,4 +1,5 @@
 interface Obstacle {
+  id: number;
   x: number;
   y: number;
   width: number;
@@ -29,8 +30,11 @@ export default function Obstacle({ obstacles }: DateProps) {
             backgroundImage: obs.backgroundImage,
             backgroundPosition: obs.backgroundPosition,
             opacity: obs.opacity,
+            fontSize: "7px",
+            backgroundSize: "152px 118px",
           }}
         >
+          {obs.x / obs.width}-{obs.y / obs.height}
         </div>
       ))}
     </>

@@ -1,20 +1,26 @@
-// MapGame.tsx
 import { useState, useEffect } from "react";
 import Player from "./Player";
 import Collision from "./Obstacle";
 import Materials from "./materials/Materials";
+import Foods from "./materials/Foods";
 import { getCollidingObstacle } from "./utils/Collision";
 import { obstaclesRockData } from "./ObstaclesRock";
 import { obstaclesTreeData } from "./ObstaclesTree";
 import { obstaclesWaterData } from "./ObstaclesWater";
+import { obstaclesBaseData } from "./ObstaclesBase";
+import { useObstacles } from "./hook/useObstacles";
 import "./css/score.css";
 
 const REM = 40;
 const SPEED = 16;
-const MAP_SIZE = REM * SPEED; // 640px
-const LIVE_TREE = 1000;
-const LIVE_ROCK = 1500;
-const LIVE_WATER = 600;
+const MAP_SIZE = REM * SPEED;
+
+const LIVE = {
+  ROCK: 1500,
+  TREE: 1000,
+  WATER: 600,
+  BASE: 0,
+};
 
 type Obstacle = {
   id: number;
@@ -32,36 +38,23 @@ type Obstacle = {
 
 export default function MapGame() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [scoreRock, setScoreRock] = useState(0);
-  const [scoreTree, setScoreTree] = useState(0);
-  const [scoreWater, setScoreWater] = useState(0);
+  const [scores, setScores] = useState({ rock: 0, tree: 0, water: 0 });
 
-  const [score, setScore] = useState(0);
-  const [obstaclesRock, setObstaclesRock] = useState<Obstacle[]>(
-    obstaclesRockData(SPEED, LIVE_ROCK)
-  );
-  const [obstaclesTree, setObstaclesTree] = useState<Obstacle[]>(
-    obstaclesTreeData(SPEED, LIVE_TREE)
-  );
-  const [obstaclesWater, setObstaclesWater] = useState<Obstacle[]>(
-    obstaclesWaterData(SPEED, LIVE_WATER)
-  );
+  const [obstaclesRock, setObstaclesRock] = useObstacles(obstaclesRockData, SPEED, LIVE.ROCK);
+  const [obstaclesTree, setObstaclesTree] = useObstacles(obstaclesTreeData, SPEED, LIVE.TREE);
+  const [obstaclesWater, setObstaclesWater] = useObstacles(obstaclesWaterData, SPEED, LIVE.WATER);
+  const [obstaclesBase] = useObstacles(obstaclesBaseData, SPEED, LIVE.BASE);
 
   const handleMove = (dx: number, dy: number) => {
-    let newX = pos.x + dx;
-    let newY = pos.y + dy;
-
-    newX = Math.max(0, Math.min(newX, MAP_SIZE - SPEED));
-    newY = Math.max(0, Math.min(newY, MAP_SIZE - SPEED));
+    let newX = Math.max(0, Math.min(pos.x + dx, MAP_SIZE - SPEED));
+    let newY = Math.max(0, Math.min(pos.y + dy, MAP_SIZE - SPEED));
 
     const allObstacles = [
       { type: "rock", list: obstaclesRock, setter: setObstaclesRock },
       { type: "tree", list: obstaclesTree, setter: setObstaclesTree },
       { type: "water", list: obstaclesWater, setter: setObstaclesWater },
-      // más tipos aquí...
     ];
 
-    // colisiones
     for (const { type, list, setter } of allObstacles) {
       const hit = getCollidingObstacle(list, newX, newY, SPEED);
       if (hit) {
@@ -72,26 +65,17 @@ export default function MapGame() {
           prev
             .map((ob) =>
               ob.id === hit.id
-                ? {
-                    ...ob,
-                    live: newLive,
-                    opacity: ob.opacity - 10 / hit.live,
-                  }
+                ? { ...ob, live: newLive, opacity: ob.opacity - 10 / hit.live }
                 : ob
             )
             .filter((ob) => ob.live > 0)
         );
 
-        if (isDestroyed) {
-          console.log("💥 Objeto destruido:", hit);
-
-          // Score general
-          setScore((prev) => prev + hit.point);
-
-          // Score por tipo
-          if (type === "rock") setScoreRock((prev) => prev + hit.point);
-          if (type === "tree") setScoreTree((prev) => prev + hit.point);
-          if (type === "water") setScoreWater((prev) => prev + hit.point);
+        if (isDestroyed && type in scores) {
+          setScores((prev) => ({
+            ...prev,
+            [type]: prev[type as keyof typeof scores] + hit.point,
+          }));
         }
 
         return;
@@ -102,31 +86,43 @@ export default function MapGame() {
   };
 
   useEffect(() => {
-    console.log("🎯 Score total:", score);
-    console.log("🪨 Rock:", scoreRock);
-    console.log("🌳 Tree:", scoreTree);
-    console.log("💧 Water:", scoreWater);
-  }, [score, scoreRock, scoreTree, scoreWater]);
+    const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+    console.log("🎯 Total:", totalScore);
+    console.log("🪨 Rock:", scores.rock);
+    console.log("🌳 Tree:", scores.tree);
+    console.log("💧 Water:", scores.water);
+  }, [scores]);
+
+    const isNearPlayer = (ob: Obstacle) =>
+    Math.abs(ob.x - pos.x) < 50 && Math.abs(ob.y - pos.y) < 50;
 
   return (
     <>
       <div className="materials">
-        <Materials score={scoreRock} />
-        <Materials score={scoreTree} />
-        <Materials score={scoreWater} />
+        <Materials score={scores.rock} />
+        <Materials score={scores.tree} />
+        <Materials score={scores.water} />
       </div>
+      
+      <div className="materials">
+        <Foods score={scores.rock} />
+        <Materials score={scores.tree} />
+        <Materials score={scores.water} />
+      </div>
+      
       <div
         style={{
           position: "relative",
           width: `${REM}rem`,
           height: `${REM}rem`,
-          background: "#eee",
+          background: "#000",
         }}
       >
+        <Collision obstacles={obstaclesBase.filter(isNearPlayer)} />
         <Player speed={SPEED} pos={pos} onMove={handleMove} />
-        <Collision obstacles={obstaclesRock} />
-        <Collision obstacles={obstaclesTree} />
-        <Collision obstacles={obstaclesWater} />
+        <Collision obstacles={obstaclesRock.filter(isNearPlayer)} />
+        <Collision obstacles={obstaclesTree.filter(isNearPlayer)} />
+        <Collision obstacles={obstaclesWater.filter(isNearPlayer)} />
       </div>
     </>
   );

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import pixel from "./img/pixel.png";
+import pixel from "./img/pixel.svg";
 
 interface DateProps {
   speed: number;
   pos: { x: number; y: number };
   onMove: (dx: number, dy: number) => void;
 }
-const FRAME_X = -128;
-const FRAME_Y = -178;
+const FRAME_X = 0;
+const FRAME_Y = 0;
 
 export default function Player({ speed, pos, onMove }: DateProps) {
   const [dir, setDir] = useState(1);
@@ -47,6 +47,7 @@ export default function Player({ speed, pos, onMove }: DateProps) {
         backgroundRepeat: "no-repeat",
         imageRendering: "pixelated",
         transform: `translate(${pos.x}px, ${pos.y}px) scaleX(${dir})`,
+        backgroundSize: "152px 118px",
       }}
     />
   );

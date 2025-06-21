@@ -6,17 +6,15 @@ interface DateProps {
   speed: number;
 }
 
-const POSITION = "0 -135px";
-const POINT = 10;
+const POSITION = "0 -203px";
+const POINT = 0;
 
-export const obstaclesRockData = ({ speed, live }: DateProps) => {
+export const obstaclesBaseData = ({ speed, live }: DateProps) => {
   const base = getObstacles({ speed, live, position: POSITION, point: POINT });
-  
 
-  const rect1 = generarRectangulo(1, 1, 1, 34);
-  const rect2 = generarRectangulo(2, 12, 4, 33);
+  const rect1 = generarRectangulo(0, 0, 39, 39);
 
-  const todasCoords = [...rect1, ...rect2];
+  const todasCoords = [...rect1];
 
   return todasCoords.map(([x, y], index) => ({
     ...base,
