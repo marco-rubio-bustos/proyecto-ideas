@@ -5,9 +5,10 @@ interface Obstacle {
   width: number;
   height: number;
   opacity: number;
-  background: string;
+  backgroundColor: string;
   backgroundImage?: string;
   backgroundPosition?: string;
+  zIndex: boolean;
 }
 
 interface DateProps {
@@ -26,12 +27,13 @@ export default function Obstacle({ obstacles }: DateProps) {
             top: obs.y,
             width: obs.width,
             height: obs.height,
-            backgroundColor: `rgba(${obs.background}, ${obs.opacity})`,
+            backgroundColor: `rgba(${obs.backgroundColor}, ${obs.opacity})`,
             backgroundImage: obs.backgroundImage,
             backgroundPosition: obs.backgroundPosition,
             opacity: obs.opacity,
             fontSize: "7px",
             backgroundSize: "152px 118px",
+            zIndex: obs.zIndex ? "9" : "0",
           }}
         >
           {obs.x / obs.width}-{obs.y / obs.height}

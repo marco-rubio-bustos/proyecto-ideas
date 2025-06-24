@@ -48,6 +48,7 @@ export default function Player({ speed, pos, onMove }: DateProps) {
         imageRendering: "pixelated",
         transform: `translate(${pos.x}px, ${pos.y}px) scaleX(${dir})`,
         backgroundSize: "152px 118px",
+        zIndex: 0,
       }}
     />
   );

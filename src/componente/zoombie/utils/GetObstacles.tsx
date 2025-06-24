@@ -3,10 +3,11 @@ interface DateProps {
   live: number;
   speed: number;
   position: string;
-  point: number
+  point: number;
+  zIndex: boolean;
 }
 
-export const getObstacles = ({ speed, live, position, point}: DateProps) => {
+export const getObstacles = ({ speed, live, position, point, zIndex }: DateProps) => {
   return {
     x: speed,
     y: speed,
@@ -14,10 +15,11 @@ export const getObstacles = ({ speed, live, position, point}: DateProps) => {
     height: speed,
     live: live,
     opacity: 1,
-    background: "130, 130, 130",
+    backgroundColor: "130, 130, 130",
     backgroundImage: `url(${pixel})`,
     imageRendering: "pixelated",
     point: point,
-    backgroundPosition: `${position}`,
+    backgroundPosition: position,
+    zIndex: zIndex,
   };
 };

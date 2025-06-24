@@ -1,9 +1,13 @@
-.materials{
+.resources {
+    display: flex;
+    justify-content: space-between;
+}
+.materials, .foods{
     display: flex;
     font-size: .8rem;
     margin-bottom: .5rem;
 }
-.materials p{
+.materials p, .foods p{
     margin: 0;
     padding-left: .5rem;
 }

@@ -6,14 +6,20 @@ interface DateProps {
   speed: number;
 }
 
-const POSITION = "0 -203px";
+const POSITION = "0 -1";
 const POINT = 0;
-const ZINDEX = false;
+const ZINDEX = true;
 
-export const obstaclesBaseData = ({ speed, live }: DateProps) => {
-  const base = getObstacles({ speed, live, position: POSITION, point: POINT, zIndex: ZINDEX });
+export const obstaclesHouseData = ({ speed, live }: DateProps) => {
+  const base = getObstacles({
+    speed,
+    live,
+    position: POSITION,
+    point: POINT,
+    zIndex: ZINDEX,
+  });
 
-  const rect1 = generarRectangulo(0, 0, 39, 39);
+  const rect1 = generarRectangulo(19, 19, 19, 19);
 
   const todasCoords = [...rect1];
 

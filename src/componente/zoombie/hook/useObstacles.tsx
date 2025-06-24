@@ -9,9 +9,10 @@ export interface Obstacle {
   live: number;
   opacity: number;
   point: number;
-  background: string;
+  backgroundColor: string;
   backgroundImage?: string;
   backgroundPosition?: string;
+  zIndex: boolean;
 }
 
 

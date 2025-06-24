@@ -8,9 +8,10 @@ interface DateProps {
 
 const POSITION = "0 -135px";
 const POINT = 10;
+const ZINDEX = false;
 
 export const obstaclesRockData = ({ speed, live }: DateProps) => {
-  const base = getObstacles({ speed, live, position: POSITION, point: POINT });
+  const base = getObstacles({ speed, live, position: POSITION, point: POINT, zIndex: ZINDEX });
   
 
   const rect1 = generarRectangulo(1, 1, 1, 34);
