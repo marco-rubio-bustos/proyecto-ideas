@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 interface DateProps {
   score: number;
   gameOver: (amount: boolean) => void;
+  isReboot: number;
 }
 
-const VALOR_INITIAL = 3;
-
-export default function Foods({ score, gameOver }: DateProps) {
+export default function Foods({ score, gameOver, isReboot }: DateProps) {
+  const VALOR_INITIAL = 3;
   const [food, setFood] = useState(VALOR_INITIAL);
+  const [hasGameOverTriggered, setHasGameOverTriggered] = useState(false);
 
   useEffect(() => {
     setFood((prev) => prev + score);
@@ -21,12 +22,20 @@ export default function Foods({ score, gameOver }: DateProps) {
 
     return () => clearInterval(interval);
   }, []);
-  
+
   useEffect(() => {
-    if (food <= 0) {
+    if (food <= 0 && !hasGameOverTriggered) {
       gameOver(true);
+      setHasGameOverTriggered(true);
     }
   }, [food, gameOver]);
+
+  useEffect(() => {
+    if (isReboot > 0) {
+      setFood(VALOR_INITIAL);
+      setHasGameOverTriggered(false);
+    }
+  }, [isReboot]);
 
   return (
     <div className="score">

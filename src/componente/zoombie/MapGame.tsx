@@ -64,6 +64,8 @@ export default function MapGame() {
     SPEED,
     LIVE.WATER
   );
+  const [isReboot, setIsReboot] = useState(0);
+
   const [obstaclesBase] = useObstacles(obstaclesBaseData, SPEED, LIVE.BASE);
   const [obstaclesHouse] = useObstacles(obstaclesHouseData, SPEED, LIVE.BASE);
 
@@ -125,7 +127,9 @@ export default function MapGame() {
 
   const handleGameOver = (value: boolean) => {
     setGameOver(value);
-    console.log("Game Over recibido desde Foods:", value);
+    if (!value) {      
+      setIsReboot((k) => k + 1);
+    }
   };
 
   return (
@@ -141,7 +145,7 @@ export default function MapGame() {
         </div>
 
         <div className="foods">
-          <Foods score={waterCollected} gameOver={handleGameOver} />
+          <Foods score={waterCollected} gameOver={handleGameOver} isReboot={isReboot} />
         </div>
       </div>
 
@@ -158,7 +162,7 @@ export default function MapGame() {
           collectWater={Math.max(scores.water - waterCollected * 10, 0)}
           takeWater={handleTakeWater}
         />
-        <ModalGameOver showModal={gameOver} />
+        <ModalGameOver showModal={gameOver} getNewGame={handleGameOver}  />
         <HouseZone
           pos={pos}
           onEnter={() => setInsideHouse(true)}
@@ -166,7 +170,7 @@ export default function MapGame() {
         />
         <Collision obstacles={obstaclesBase.filter(isNearPlayer)} />
         <Collision obstacles={obstaclesHouse.filter(isNearPlayer)} />
-        <Player speed={SPEED} pos={pos} onMove={handleMove} />
+        <Player speed={SPEED} pos={pos} onMove={handleMove} isGameOver={gameOver} />
         <Collision obstacles={obstaclesRock.filter(isNearPlayer)} />
         <Collision obstacles={obstaclesTree.filter(isNearPlayer)} />
         <Collision obstacles={obstaclesWater.filter(isNearPlayer)} />

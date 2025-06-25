@@ -17,10 +17,17 @@
     background: rgb(139, 111, 70);
     border: 4px solid rgb(255, 255, 255);}
 .modal.gameOver{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 400px;
     height: 100px;
     background: rgb(235, 13, 87);
     border: 4px solid rgb(255, 255, 255);}
+.modal.gameOver button{
+    margin-top: 10px;
+}
 .createFood{
     width: 100%;
     display: flex;

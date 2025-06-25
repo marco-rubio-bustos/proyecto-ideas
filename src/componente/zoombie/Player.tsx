@@ -5,14 +5,17 @@ interface DateProps {
   speed: number;
   pos: { x: number; y: number };
   onMove: (dx: number, dy: number) => void;
+  isGameOver: boolean;
 }
 const FRAME_X = 0;
 const FRAME_Y = 0;
 
-export default function Player({ speed, pos, onMove }: DateProps) {
+export default function Player({ speed, pos, onMove, isGameOver }: DateProps) {
   const [dir, setDir] = useState(1);
 
   useEffect(() => {
+    if (isGameOver) return;
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowUp":
@@ -34,7 +37,7 @@ export default function Player({ speed, pos, onMove }: DateProps) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onMove, speed]);
+  }, [onMove, speed, isGameOver]);
 
   return (
     <div
