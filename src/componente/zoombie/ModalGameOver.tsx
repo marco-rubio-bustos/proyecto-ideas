@@ -4,10 +4,10 @@ import "./css/modal.css";
 
 interface DateProps {
   showModal: boolean;
-  getNewGame: (isNewGame: boolean) => void;
+  getOtherGame: (isNewGame: boolean) => void;
 }
 
-export default function ModalGameOver({ showModal, getNewGame }: DateProps) {
+export default function ModalGameOver({ showModal, getOtherGame }: DateProps) {
   const modal = showModal ? "flex" : "none";
 
   return (
@@ -20,7 +20,7 @@ export default function ModalGameOver({ showModal, getNewGame }: DateProps) {
     >
       <div className="modal gameOver">
         JUEGO TERMINADO
-        <button className="button" onClick={() => getNewGame(false)}>
+        <button className="button" onClick={() => getOtherGame(false)}>
           Jugar de nuevo
         </button>
       </div>

@@ -6,16 +6,37 @@ interface DateProps {
   pos: { x: number; y: number };
   onMove: (dx: number, dy: number) => void;
   isGameOver: boolean;
+  selectedPlayer: number;
 }
-const FRAME_X = 0;
 const FRAME_Y = 0;
 
-export default function Player({ speed, pos, onMove, isGameOver }: DateProps) {
+export default function Player({ speed, pos, onMove, isGameOver, selectedPlayer }: DateProps) {
   const [dir, setDir] = useState(1);
+
+  let frameX
+  switch (selectedPlayer) {
+    case 0:
+      frameX = 0;
+      break;
+    case 1:
+      frameX = -17;
+      break;
+    case 2:
+      frameX = -51;
+      break;
+    case 3:
+      frameX = -85;
+      break;
+    case 4:
+      frameX = -119;
+      break;
+    default:
+      break;
+  }
 
   useEffect(() => {
     if (isGameOver) return;
-    
+
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowUp":
@@ -46,7 +67,7 @@ export default function Player({ speed, pos, onMove, isGameOver }: DateProps) {
         width: "1rem",
         height: "1rem",
         backgroundImage: `url(${pixel})`,
-        backgroundPosition: `${FRAME_X}px ${FRAME_Y}px`,
+        backgroundPosition: `${frameX}px ${FRAME_Y}px`,
         backgroundRepeat: "no-repeat",
         imageRendering: "pixelated",
         transform: `translate(${pos.x}px, ${pos.y}px) scaleX(${dir})`,

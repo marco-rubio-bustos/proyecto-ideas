@@ -1,0 +1,66 @@
+import { useState } from "react";
+import pixel from "./img/pixel.svg";
+import "./css/modal.css";
+
+interface DateProps {
+  showModal: boolean;
+  onSelectPlayer: (index: number) => void;
+  getNewGame: () => void;
+}
+
+export default function ModalGameOver({
+  showModal,
+  onSelectPlayer,
+  getNewGame,
+}: DateProps) {
+  const [selectedPlayer, setSelectedPlayer] = useState<number | null>(null);
+
+  const modal = showModal ? "flex" : "none";
+
+  const spriteBase: React.CSSProperties = {
+    width: "3.2rem",
+    height: "3.3rem",
+    backgroundImage: `url(${pixel})`,
+    backgroundRepeat: "no-repeat",
+    imageRendering: "pixelated",
+    transform: "translate(0px, 0px)",
+    backgroundSize: "447px 353px",
+    zIndex: 0,
+    cursor: "pointer",
+  };
+  // 447 353
+  const positions = ["2px", "-48px", "-148px", "-248px", "-348px"];
+
+  return (
+    <div style={{ display: modal, bottom: "0px" }} className="modalBox">
+      <div className="modal newGame">
+        <h1>SALVA A YUNCITO</h1>
+        <div className="playerSelect" style={{ display: "flex", gap: "1rem" }}>
+          {positions.map((pos, idx) => (
+            <div
+              key={idx}
+              onClick={() => {
+                setSelectedPlayer(idx);
+                onSelectPlayer(idx);
+              }}
+              style={{
+                ...spriteBase,
+                backgroundPosition: `${pos} 0px`,
+                outline: selectedPlayer === idx ? "2px solid gold" : "none",
+              }}
+            />
+          ))}
+        </div>
+        <button
+          onClick={() => {
+            if (selectedPlayer !== null) {
+              getNewGame();
+            }
+          }}
+        >
+          Jugar
+        </button>
+      </div>
+    </div>
+  );
+}
