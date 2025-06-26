@@ -39,6 +39,13 @@
 .modal.gameOver button, .modal.newGame button{
     margin-top: 2rem;
 }
+.modal.gameOver .buttons button:nth-child(1){
+    background-color: rgb(177, 146, 104);
+}
+.modal.gameOver .buttons{
+    display: flex;
+    gap: 1rem;
+}
 .createFood{
     width: 100%;
     display: flex;

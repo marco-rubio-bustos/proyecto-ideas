@@ -47,7 +47,7 @@ export default function MapGame() {
   const [pos, setPos] = useState({ x: PLAYER_INITIAL, y: PLAYER_INITIAL });
   const [scores, setScores] = useState({ rock: 0, tree: 0, water: 0 });
   const [insideHouse, setInsideHouse] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
   const [newGame, setNewGame] = useState(true);
   const [waterCollected, setWaterCollected] = useState(0);
 
@@ -129,39 +129,51 @@ export default function MapGame() {
 
   const handleGameOver = (value: boolean) => {
     setGameOver(value);
-    if (!value) {
+    console.log("handleGameOver " + value);
+
+    if (value) {
       setIsReboot((k) => k + 1);
+      setPos({ x: PLAYER_INITIAL, y: PLAYER_INITIAL });
     }
   };
 
   const handlePlayerSelect = (index: number) => {
     setSelectedPlayer(index);
-    console.log("Player escogido:", index);
   };
 
   const handleNewGame = () => {
     setNewGame(false);
   };
 
+  const xxx = (value: boolean) => {
+    setGameOver(value);
+    setNewGame(true);
+    console.log("xxx " + value);
+  };
+
   return (
     <>
       <div className="resources">
-        <div className="materials">
-          <Materials score={scores.rock} type="rock" />
-          <Materials score={scores.tree} type="tree" />
-          <Materials
-            score={Math.max(scores.water - waterCollected * 10, 0)}
-            type="water"
-          />
-        </div>
+        {!newGame && (
+          <>
+            <div className="materials">
+              <Materials score={scores.rock} type="rock" />
+              <Materials score={scores.tree} type="tree" />
+              <Materials
+                score={Math.max(scores.water - waterCollected * 10, 0)}
+                type="water"
+              />
+            </div>
 
-        <div className="foods">
-          <Foods
-            score={waterCollected}
-            gameOver={handleGameOver}
-            isReboot={isReboot}
-          />
-        </div>
+            <div className="foods">
+              <Foods
+                score={waterCollected}
+                getGameOver={handleGameOver}
+                isReboot={isReboot}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <div
@@ -182,7 +194,11 @@ export default function MapGame() {
           onSelectPlayer={handlePlayerSelect}
           getNewGame={handleNewGame}
         />
-        <ModalGameOver showModal={gameOver} getOtherGame={handleGameOver} />
+        <ModalGameOver
+          showModal={gameOver}
+          getOtherGame={handleGameOver}
+          getNewGame={xxx}
+        />
         <HouseZone
           pos={pos}
           onEnter={() => setInsideHouse(true)}

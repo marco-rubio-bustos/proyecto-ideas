@@ -1,6 +1,7 @@
 .resources {
     display: flex;
     justify-content: space-between;
+    height: 2rem;
 }
 .materials, .foods{
     display: flex;

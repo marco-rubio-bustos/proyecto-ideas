@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 interface DateProps {
   score: number;
-  gameOver: (amount: boolean) => void;
+  getGameOver: (amount: boolean) => void;
   isReboot: number;
 }
 
-export default function Foods({ score, gameOver, isReboot }: DateProps) {
-  const VALOR_INITIAL = 3000000;
+export default function Foods({ score, getGameOver, isReboot }: DateProps) {
+  const VALOR_INITIAL = 10;
   const [food, setFood] = useState(VALOR_INITIAL);
   const [hasGameOverTriggered, setHasGameOverTriggered] = useState(false);
 
@@ -25,10 +25,10 @@ export default function Foods({ score, gameOver, isReboot }: DateProps) {
 
   useEffect(() => {
     if (food <= 0 && !hasGameOverTriggered) {
-      gameOver(true);
+      getGameOver(false);
       setHasGameOverTriggered(true);
     }
-  }, [food, gameOver]);
+  }, [food, getGameOver]);
 
   useEffect(() => {
     if (isReboot > 0) {

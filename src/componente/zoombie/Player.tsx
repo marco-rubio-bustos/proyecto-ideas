@@ -35,7 +35,7 @@ export default function Player({ speed, pos, onMove, isGameOver, selectedPlayer 
   }
 
   useEffect(() => {
-    if (isGameOver) return;
+    if (!isGameOver) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
