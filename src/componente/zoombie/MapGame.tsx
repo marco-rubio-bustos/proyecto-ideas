@@ -35,6 +35,7 @@ const REM = 40;
 const SPEED = 16;
 const MAP_SIZE = REM * SPEED;
 const PLAYER_INITIAL = SPEED * 20;
+const SCORES_INITIAL = { rock: 0, tree: 0, water: 0 };
 
 const LIVE = {
   ROCK: 1500,
@@ -45,7 +46,7 @@ const LIVE = {
 
 export default function MapGame() {
   const [pos, setPos] = useState({ x: PLAYER_INITIAL, y: PLAYER_INITIAL });
-  const [scores, setScores] = useState({ rock: 0, tree: 0, water: 0 });
+  const [scores, setScores] = useState(SCORES_INITIAL);
   const [insideHouse, setInsideHouse] = useState(false);
   const [gameOver, setGameOver] = useState(true);
   const [newGame, setNewGame] = useState(true);
@@ -127,28 +128,34 @@ export default function MapGame() {
     setWaterCollected((prev) => prev + drinkWater);
   };
 
-  const handleGameOver = (value: boolean) => {
-    setGameOver(value);
-    console.log("handleGameOver " + value);
-
-    if (value) {
-      setIsReboot((k) => k + 1);
-      setPos({ x: PLAYER_INITIAL, y: PLAYER_INITIAL });
-    }
-  };
-
   const handlePlayerSelect = (index: number) => {
     setSelectedPlayer(index);
   };
 
-  const handleNewGame = () => {
+  const handleOtherGame = () => {
     setNewGame(false);
   };
 
-  const xxx = (value: boolean) => {
+  const resetGameState = () => {
+    setPos({ x: PLAYER_INITIAL, y: PLAYER_INITIAL });
+    setScores(SCORES_INITIAL);
+    setObstaclesRock(obstaclesRockData({ speed: SPEED, live: LIVE.ROCK }));
+    setObstaclesTree(obstaclesTreeData({ speed: SPEED, live: LIVE.TREE }));
+    setObstaclesWater(obstaclesWaterData({ speed: SPEED, live: LIVE.WATER }));
+  };
+
+  const handleGameOver = (value: boolean) => {
+    setGameOver(value);
+    if (value) {
+      setIsReboot((k) => k + 1);
+      resetGameState();
+    }
+  };
+
+  const handleNewGame = (value: boolean) => {
     setGameOver(value);
     setNewGame(true);
-    console.log("xxx " + value);
+    resetGameState();
   };
 
   return (
@@ -192,12 +199,12 @@ export default function MapGame() {
         <ModalNewGame
           showModal={newGame}
           onSelectPlayer={handlePlayerSelect}
-          getNewGame={handleNewGame}
+          getNewGame={handleOtherGame}
         />
         <ModalGameOver
           showModal={gameOver}
           getOtherGame={handleGameOver}
-          getNewGame={xxx}
+          getNewGame={handleNewGame}
         />
         <HouseZone
           pos={pos}
