@@ -5,7 +5,7 @@ import "./css/modal.css";
 interface DateProps {
   showModal: boolean;
   onSelectPlayer: (index: number) => void;
-  getNewGame: () => void;
+  getNewGame: (amount: boolean) => void;
 }
 
 export default function ModalGameOver({
@@ -28,7 +28,7 @@ export default function ModalGameOver({
     zIndex: 0,
     cursor: "pointer",
   };
-  // 447 353
+
   const positions = ["2px", "-48px", "-148px", "-248px", "-348px"];
 
   return (
@@ -54,7 +54,7 @@ export default function ModalGameOver({
         <button
           onClick={() => {
             if (selectedPlayer !== null) {
-              getNewGame();
+              getNewGame(false);
             }
           }}
         >

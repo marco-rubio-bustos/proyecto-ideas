@@ -48,7 +48,7 @@ export default function MapGame() {
   const [pos, setPos] = useState({ x: PLAYER_INITIAL, y: PLAYER_INITIAL });
   const [scores, setScores] = useState(SCORES_INITIAL);
   const [insideHouse, setInsideHouse] = useState(false);
-  const [gameOver, setGameOver] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
   const [newGame, setNewGame] = useState(true);
   const [waterCollected, setWaterCollected] = useState(0);
 
@@ -132,8 +132,9 @@ export default function MapGame() {
     setSelectedPlayer(index);
   };
 
-  const handleOtherGame = () => {
-    setNewGame(false);
+  const handleNewGame = (value: boolean) => {
+    setNewGame(value);
+    setGameOver(value); //
   };
 
   const resetGameState = () => {
@@ -145,15 +146,16 @@ export default function MapGame() {
   };
 
   const handleGameOver = (value: boolean) => {
-    setGameOver(value);
+    setGameOver(!value);
+
     if (value) {
       setIsReboot((k) => k + 1);
       resetGameState();
     }
   };
 
-  const handleNewGame = (value: boolean) => {
-    setGameOver(value);
+  const handleOtherGame = (value: boolean) => {
+    setGameOver(!value);
     setNewGame(true);
     resetGameState();
   };
@@ -199,12 +201,12 @@ export default function MapGame() {
         <ModalNewGame
           showModal={newGame}
           onSelectPlayer={handlePlayerSelect}
-          getNewGame={handleOtherGame}
+          getNewGame={handleNewGame}
         />
         <ModalGameOver
           showModal={gameOver}
           getOtherGame={handleGameOver}
-          getNewGame={handleNewGame}
+          getNewGame={handleOtherGame}
         />
         <HouseZone
           pos={pos}

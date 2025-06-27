@@ -8,8 +8,12 @@ interface DateProps {
   getNewGame: (amount: boolean) => void;
 }
 
-export default function ModalGameOver({ showModal, getOtherGame, getNewGame }: DateProps) {
-  const modal = showModal ? "none" : "flex";
+export default function ModalGameOver({
+  showModal,
+  getOtherGame,
+  getNewGame,
+}: DateProps) {
+  const modal = showModal ? "flex" : "none";
 
   return (
     <div

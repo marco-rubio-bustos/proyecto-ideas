@@ -10,10 +10,16 @@ interface DateProps {
 }
 const FRAME_Y = 0;
 
-export default function Player({ speed, pos, onMove, isGameOver, selectedPlayer }: DateProps) {
+export default function Player({
+  speed,
+  pos,
+  onMove,
+  isGameOver,
+  selectedPlayer,
+}: DateProps) {
   const [dir, setDir] = useState(1);
 
-  let frameX
+  let frameX;
   switch (selectedPlayer) {
     case 0:
       frameX = 0;
@@ -35,7 +41,7 @@ export default function Player({ speed, pos, onMove, isGameOver, selectedPlayer 
   }
 
   useEffect(() => {
-    if (!isGameOver) return;
+    if (isGameOver) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
