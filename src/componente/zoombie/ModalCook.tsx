@@ -80,7 +80,7 @@ export default function Modal({
               backgroundPosition: "0px -50px",
               backgroundRepeat: "no-repeat",
               imageRendering: "pixelated",
-              backgroundSize: "152px 118px",
+              backgroundSize: "175px 118px",
             }}
           ></div>
           <p

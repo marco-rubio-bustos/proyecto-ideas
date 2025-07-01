@@ -25,16 +25,16 @@ export default function Player({
       frameX = 0;
       break;
     case 1:
-      frameX = -17;
+      frameX = -34;
       break;
     case 2:
-      frameX = -51;
+      frameX = -68;
       break;
     case 3:
-      frameX = -85;
+      frameX = -102;
       break;
     case 4:
-      frameX = -119;
+      frameX = -136;
       break;
     default:
       break;
@@ -77,7 +77,7 @@ export default function Player({
         backgroundRepeat: "no-repeat",
         imageRendering: "pixelated",
         transform: `translate(${pos.x}px, ${pos.y}px) scaleX(${dir})`,
-        backgroundSize: "152px 118px",
+        backgroundSize: "175px 118px",
         zIndex: 0,
       }}
     />

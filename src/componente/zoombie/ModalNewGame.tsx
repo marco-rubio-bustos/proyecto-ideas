@@ -18,18 +18,18 @@ export default function ModalGameOver({
   const modal = showModal ? "flex" : "none";
 
   const spriteBase: React.CSSProperties = {
-    width: "3.2rem",
-    height: "3.3rem",
+    width: "4.1rem",
+    height: "4rem",
     backgroundImage: `url(${pixel})`,
     backgroundRepeat: "no-repeat",
     imageRendering: "pixelated",
     transform: "translate(0px, 0px)",
-    backgroundSize: "447px 353px",
+    backgroundSize: "697px 472px",
     zIndex: 0,
     cursor: "pointer",
   };
 
-  const positions = ["2px", "-48px", "-148px", "-248px", "-348px"];
+  const positions = ["0px", "-134px", "-270px", "-405px", "-541px"];
 
   return (
     <div style={{ display: modal, bottom: "0px" }} className="modalBox">
