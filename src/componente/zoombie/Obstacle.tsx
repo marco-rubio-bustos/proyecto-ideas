@@ -8,6 +8,7 @@ interface Obstacle {
   backgroundColor: string;
   backgroundImage?: string;
   backgroundPosition?: string;
+  backgroundSize: string;
   zIndex: boolean;
 }
 
@@ -32,7 +33,7 @@ export default function Obstacle({ obstacles }: DateProps) {
             backgroundPosition: obs.backgroundPosition,
             opacity: obs.opacity,
             fontSize: "7px",
-            backgroundSize: "152px 118px",
+            backgroundSize: obs.backgroundSize,
             zIndex: obs.zIndex ? "9" : "0",
           }}
         >

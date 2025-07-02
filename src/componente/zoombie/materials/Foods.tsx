@@ -7,7 +7,7 @@ interface DateProps {
 }
 
 export default function Foods({ score, getGameOver, isReboot }: DateProps) {
-  const VALOR_INITIAL = 100;
+  const VALOR_INITIAL = 100000;
   const [food, setFood] = useState(VALOR_INITIAL);
   const [hasGameOverTriggered, setHasGameOverTriggered] = useState(false);
 

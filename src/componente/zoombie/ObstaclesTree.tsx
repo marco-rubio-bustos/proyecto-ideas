@@ -7,12 +7,23 @@ interface DateProps {
 }
 
 const POSITION = "0 -152px";
+const SIZE = "175px 118px";
 const POINT = 10;
+const WIDTH = 16;
+const HEIGHT = 16;
 const ZINDEX = false;
 
-export const obstaclesTreeData = ({speed, live}: DateProps) => {
-  const base = getObstacles({ speed, live, position: POSITION, point: POINT, zIndex: ZINDEX });
-
+export const obstaclesTreeData = ({ speed, live }: DateProps) => {
+  const base = getObstacles({
+    speed,
+    live,
+    width: WIDTH,
+    height: HEIGHT,
+    position: POSITION,
+    size: SIZE,
+    point: POINT,
+    zIndex: ZINDEX,
+  });
 
   const rect1 = generarRectangulo(6, 0, 10, 1);
   const rect2 = generarRectangulo(11, 0, 16, 3);
@@ -23,7 +34,6 @@ export const obstaclesTreeData = ({speed, live}: DateProps) => {
   const rect7 = generarRectangulo(26, 10, 17, 12);
   const rect8 = generarRectangulo(34, 11, 37, 16);
   const rect9 = generarRectangulo(12, 5, 27, 5);
-
 
   const todasCoords = [
     ...rect1,

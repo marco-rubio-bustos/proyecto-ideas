@@ -12,9 +12,9 @@ export interface Obstacle {
   backgroundColor: string;
   backgroundImage?: string;
   backgroundPosition?: string;
+  backgroundSize: string;
   zIndex: boolean;
 }
-
 
 export const useObstacles = (
   dataGenerator: (props: { speed: number; live: number }) => Obstacle[],

@@ -7,11 +7,23 @@ interface DateProps {
 }
 
 const POSITION = "0 -203px";
+const SIZE = "175px 118px";
 const POINT = 0;
+const WIDTH = 16;
+const HEIGHT = 16;
 const ZINDEX = false;
 
 export const obstaclesBaseData = ({ speed, live }: DateProps) => {
-  const base = getObstacles({ speed, live, position: POSITION, point: POINT, zIndex: ZINDEX });
+  const base = getObstacles({
+    speed,
+    live,
+    width: WIDTH,
+    height: HEIGHT,
+    position: POSITION,
+    size: SIZE,
+    point: POINT,
+    zIndex: ZINDEX,
+  });
 
   const rect1 = generarRectangulo(0, 0, 39, 39);
 
