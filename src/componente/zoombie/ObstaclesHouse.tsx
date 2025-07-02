@@ -25,7 +25,7 @@ export const obstaclesHouseData = ({ speed, live }: DateProps) => {
     zIndex: ZINDEX,
   });
 
-  const rect1 = generarRectangulo(19, 18, 19, 18);
+  const rect1 = generarRectangulo(19, 19, 19, 19);
 
   const todasCoords = [...rect1];
 
