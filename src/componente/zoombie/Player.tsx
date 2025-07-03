@@ -70,8 +70,8 @@ export default function Player({
     <div
       style={{
         position: "absolute",
-        left: "1rem",
-        top: "1rem",
+        left: "0",
+        top: "0",
         width: "1rem",
         height: "1rem",
         backgroundImage: `url(${pixel})`,
