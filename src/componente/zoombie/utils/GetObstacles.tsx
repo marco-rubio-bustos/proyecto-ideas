@@ -1,4 +1,5 @@
 import pixel from "../img/pixel.svg";
+
 interface DateProps {
   live: number;
   speed: number;

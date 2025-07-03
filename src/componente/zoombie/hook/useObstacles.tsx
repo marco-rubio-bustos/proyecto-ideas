@@ -17,9 +17,12 @@ export interface Obstacle {
 }
 
 export const useObstacles = (
-  dataGenerator: (props: { speed: number; live: number }) => Obstacle[],
+  dataGenerator: (props: {
+    speed: number;
+    live: number;
+  }) => Obstacle[],
   speed: number,
-  live: number
+  live: number,
 ) => {
   const [obstacles, setObstacles] = useState<Obstacle[]>(
     dataGenerator({ speed, live })

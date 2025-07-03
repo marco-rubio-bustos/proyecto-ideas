@@ -7,6 +7,7 @@ import HouseZone from "./HouseZone";
 import ModalCook from "./ModalCook";
 import ModalGameOver from "./ModalGameOver";
 import ModalNewGame from "./ModalNewGame";
+import ScoresMaterials from "./ScoresMaterials";
 import { getCollidingObstacle } from "./utils/Collision";
 import { obstaclesRockData } from "./ObstaclesRock";
 import { obstaclesTreeData } from "./ObstaclesTree";
@@ -51,6 +52,7 @@ export default function MapGame() {
   const [gameOver, setGameOver] = useState(false);
   const [newGame, setNewGame] = useState(true);
   const [waterCollected, setWaterCollected] = useState(0);
+  const [valorOpacidad, setValorOpacidad] = useState<number | undefined>();
 
   const [obstaclesRock, setObstaclesRock] = useObstacles(
     obstaclesRockData,
@@ -83,9 +85,15 @@ export default function MapGame() {
       { type: "water", list: obstaclesWater, setter: setObstaclesWater },
     ];
 
+    let hitDetected = false;
+
     for (const { type, list, setter } of allObstacles) {
       const hit = getCollidingObstacle(list, newX, newY, SPEED);
+
       if (hit) {
+        hitDetected = true;
+        setValorOpacidad(hit.opacity * 10);
+
         const newLive = hit.live - 40;
         const isDestroyed = newLive <= 0;
 
@@ -108,6 +116,10 @@ export default function MapGame() {
 
         return;
       }
+    }
+
+    if (!hitDetected) {
+      setValorOpacidad(undefined);
     }
 
     setPos({ x: newX, y: newY });
@@ -222,6 +234,7 @@ export default function MapGame() {
           isGameOver={gameOver}
           selectedPlayer={selectedPlayer}
         />
+        <ScoresMaterials valorOpacidad={valorOpacidad} />
         <Collision obstacles={obstaclesRock.filter(isNearPlayer)} />
         <Collision obstacles={obstaclesTree.filter(isNearPlayer)} />
         <Collision obstacles={obstaclesWater.filter(isNearPlayer)} />
