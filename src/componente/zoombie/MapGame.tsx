@@ -234,7 +234,7 @@ export default function MapGame() {
           isGameOver={gameOver}
           selectedPlayer={selectedPlayer}
         />
-        <ScoresMaterials valorOpacidad={valorOpacidad} />
+        <ScoresMaterials valorOpacidad={valorOpacidad} pos={pos} />
         <Collision obstacles={obstaclesRock.filter(isNearPlayer)} />
         <Collision obstacles={obstaclesTree.filter(isNearPlayer)} />
         <Collision obstacles={obstaclesWater.filter(isNearPlayer)} />
