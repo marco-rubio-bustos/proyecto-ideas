@@ -1,18 +1,19 @@
-import "../../App.css";
-
-interface NumberDateProps {
-  numerals: Array<number>;
+interface ColorDateProps {
+  numerals: number[];
   numbers: number[];
+  color: string;
+  rangeRadius: number;
+  rangeGap: number;
 }
 
-function NumberDate({ numerals, numbers }: NumberDateProps) {
+function NumberDate({ numerals, numbers, color, rangeRadius, rangeGap }: ColorDateProps) {
   return (
-    <div className="date">
+    <div className={`date date-gap-${rangeGap}`}>
       {numbers.map((num) => (
-        <span
+        <span className={`span-border-${rangeRadius}`}
           key={num}
           style={{
-            backgroundColor: numerals.includes(num) ? "#357c39" : "",
+            backgroundColor: numerals.includes(num) ? color : "",
           }}
         ></span>
       ))}
